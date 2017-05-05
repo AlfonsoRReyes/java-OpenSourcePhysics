@@ -70,7 +70,7 @@ public class Projectile implements Drawable, ODE {
     rate[1] = 0;        // rate of change of vx
     rate[2] = state[3]; // rate of change of y
     rate[3] = -g;       // rate of change of vy
-    rate[4] = 1;        // dt/dt = 1
+    rate[4] = 1;        // dt/dt = 1            
   }
 
   /**
