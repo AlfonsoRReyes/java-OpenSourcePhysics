@@ -45,6 +45,7 @@ public class PendulumApp extends AbstractSimulation {
   public void doStep() {
     plotFrame.append(0, pendulum.state[2], pendulum.state[0]); // angle vs time data added
     pendulum.step(); // advances the state by one time step
+    // added debug prints to compare against R output
     System.out.format("%12f", pendulum.state[0]);
     System.out.format("%12f", pendulum.state[1]);
     System.out.format("%12f \n", pendulum.state[2]);
