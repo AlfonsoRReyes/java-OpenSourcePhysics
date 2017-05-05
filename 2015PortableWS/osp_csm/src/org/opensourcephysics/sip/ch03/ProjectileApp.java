@@ -48,6 +48,7 @@ public class ProjectileApp extends AbstractSimulation {
     plotFrame.append(0, projectile.state[4], projectile.state[0]); // x vs time data added
     plotFrame.append(1, projectile.state[4], projectile.state[2]); // y vs time data added
     animationFrame.append(0, projectile.state[0], projectile.state[2]); // trajectory data added
+    // added debug prints to compare against R output
     System.out.format("%12f", projectile.state[4]);
     System.out.format("%12f", projectile.state[0]);
     System.out.format("%12f \n", projectile.state[2]);

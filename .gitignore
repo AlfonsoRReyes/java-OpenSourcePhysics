@@ -1,26 +1,16 @@
-
-2015PortableWS/osp/bin/
-
-2015PortableWS/osp_csm/bin/
-
-2015PortableWS/osp_guide/bin/
-
-2015PortableWS/stp/bin/
-
+.settings
+.directory
+*.classpath
+.metadata
+.project
+*/bin/
+bin
 *.gif
+*.jpg
+*.css
 
-2015PortableWS/osp/src/org/opensourcephysics/resources/media/
-
-2015PortableWS/osp/src/org/opensourcephysics/resources/display/
 
 *.html
-
 *.properties
-
-2015PortableWS/\.metadata/
-
 *.class
-
-2015PortableWS/osp_guide/src/org/opensourcephysics/manual/ch14/gpl_files/
-
 *.xml

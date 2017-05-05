@@ -53,6 +53,7 @@ public class Euler extends AbstractODESolver {
     ode.getRate(state, rate);
     for(int i = 0; i<numEqn; i++) {
       state[i] = state[i]+stepSize*rate[i];
+   // added debug prints to compare against R output
       //System.out.print(state[i]);           // mine
     }
 //    System.out.format("%12f", state[4]);
