@@ -51,3 +51,77 @@ state_set
 .jcall(prj, "[D", "getState")
 ```
 
+
+
+```{r}
+.projectileApp <- J("org.opensourcephysics.sip.ch03.ProjectileApp")
+```
+
+```{r}
+projectileApp <- .jnew(.projectileApp)
+
+```
+
+```{r}
+.jcall(projectileApp, "V", "initialize")
+```
+
+
+
+```{r}
+.jcall(projectileApp, "V", "reset")
+```
+
+
+```{r}
+.jcall(projectileApp, "V", "doStep")
+```
+
+
+```{r}
+simulationControl <- J("org.opensourcephysics.controls.SimulationControl")
+simulationControl$createApp(projectileApp)
+```
+
+
+
+
+
+
+```{r}
+projectileApp$initialize()
+```
+
+```{r}
+projectileApp$doStep()
+```
+
+```{r}
+.jcall(projectileApp, "V", "startProjectile")
+```
+
+```{r}
+.jcall(.projectileApp, "V", "startProjectile")
+```
+
+
+
+```{r}
+projectileApp$stopSimulation()
+```
+
+
+
+
+
+
+
+```{r}
+.jmethods(projectileApp)
+```
+
+
+```{r}
+.jmethods(simulationControl)
+```
+

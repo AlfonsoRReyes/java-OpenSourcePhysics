@@ -1,0 +1,68 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(rJava)
+
+# this works with OSP source code but pointing to the bin folder
+ospClasses <- "./osp/bin"
+ospClasses1 <- "./osp_csm/bin"
+.jinit()          # initialize Java-VM
+.jaddClassPath(ospClasses)
+.jaddClassPath(ospClasses1)
+.jclassPath()
+```
+
+
+
+```{r}
+.projectileApp <- J("org.opensourcephysics.sip.ch03.ProjectileApp")
+# projectileApp <- .jnew(.projectileApp)
+
+projectileApp <- new(.projectileApp)
+
+```
+
+```{r}
+projectileApp <- .jnew(.projectileApp)
+
+```
+
+```{r}
+.jcall(projectileApp, "V", "initialize")
+```
+
+
+
+```{r}
+.jcall(projectileApp, "V", "reset")
+```
+
+
+```{r}
+.jcall(projectileApp, "V", "doStep")
+```
+
+```{r}
+simulationControl <- J("org.opensourcephysics.controls.SimulationControl")
+# sim <- simulationControl$createApp(projectileApp)
+.jcall(simulationControl,, "createApp", "new", projectileApp)
+```
+
+
+```{r}
+.jinit()
+simulationControl <- J("org.opensourcephysics.controls.SimulationControl")
+sim <- simulationControl$createApp(projectileApp)
+```
+
+
+```{r}
+.simulationControl <- J("org.opensourcephysics.controls.SimulationControl")
+
+simulationControl <- .jcall(.simulationControl)
+```
+

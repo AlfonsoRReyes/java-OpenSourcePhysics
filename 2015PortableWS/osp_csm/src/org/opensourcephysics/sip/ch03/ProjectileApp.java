@@ -71,8 +71,12 @@ public class ProjectileApp extends AbstractSimulation {
    * Starts the Java application.
    * @param args  command line parameters
    */
-  public static void main(String[] args) {
-    SimulationControl.createApp(new ProjectileApp());
+//  public static void main(String[] args) {
+//    SimulationControl.createApp(new ProjectileApp());
+//  }
+  
+  public void startProjectile() {
+	  SimulationControl.createApp(new ProjectileApp());
   }
 }
 
