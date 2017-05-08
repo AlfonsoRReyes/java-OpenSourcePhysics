@@ -33,7 +33,7 @@ public class Reaction implements ODE {
    */
   public void getRate(double[] state, double[] rate ){
     double xxy=state[0]*state[0]*state[1];
-    rate[0] = k1*A-k2*B*state[0]+k3*xxy-k4*state[0];  // X rate
+    rate[0] = k1*A - k2*B*state[0] + k3*xxy-k4*state[0];  // X rate
     rate[1] = k2*B*state[0]-k3*xxy ; // Y rate
     rate[2] = 1; // time derivative
   }
