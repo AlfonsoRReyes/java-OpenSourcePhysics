@@ -31,6 +31,9 @@ public class ReactionApp extends AbstractSimulation {
     * The solver increments the time using its internal stepsize.
     */
    protected void doStep() {
+	   System.out.format("%12f", reaction.state[0]);
+	   System.out.format("%12f", reaction.state[1]);
+	   System.out.format("%12f \n", reaction.state[2]);
       solver.step();
       timePlot.append(0,reaction.state[2],reaction.state[0]);
       timePlot.append(1,reaction.state[2],reaction.state[1]);
@@ -54,5 +57,6 @@ public class ReactionApp extends AbstractSimulation {
     * Starts the ReactionApp program.
     * @param args String[]
     */
-   public static void main(String[] args) { SimulationControl.createApp(new ReactionApp(), args); }
+   public static void main(String[] args) { 
+	   SimulationControl.createApp(new ReactionApp(), args); }
 }
