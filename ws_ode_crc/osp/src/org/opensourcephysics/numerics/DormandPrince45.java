@@ -7,6 +7,8 @@
 
 package org.opensourcephysics.numerics;
 
+import java.util.Arrays;
+
 /**
  *
  * DormandPrince45 implements a RKF 4/5 ODE solver with variable step size using Dormand-Prince coefficients.
@@ -76,24 +78,38 @@ public class DormandPrince45 implements ODEAdaptiveSolver {
    * @return the step size
    */
   public double step() {
+//	  System.out.print(a);
+//	  System.out.println(Arrays.deepToString(a));
+	  System.out.println(Arrays.deepToString(k));
     error_code = ODEAdaptiveSolver.NO_ERROR;
     int iterations = 10;
     double currentStep = stepSize, error = 0;
     double state[] = ode.getState();
     ode.getRate(state, k[0]); // get the initial rate
+    System.out.print("state:");
+    System.out.println(Arrays.toString(state));
     do {
       iterations--;
       currentStep = stepSize;
       // Compute the k's
+      int cum = 0;
       for(int s = 1; s<numStages; s++) {
         for(int i = 0; i<numEqn; i++) {
           temp_state[i] = state[i];
           for(int j = 0; j<s; j++) {
-            temp_state[i] = temp_state[i]+stepSize*a[s-1][j]*k[j][i];
+            temp_state[i] = temp_state[i]+stepSize * a[s-1][j] * k[j][i];
+            System.out.format("%d %d ", s, j);
+//            System.out.print( temp_state[i] + "\n");
+            System.out.print( a[s-1][j] + "\n");
+            cum = cum +1;
           }
         }
+        System.out.format("k[%d]=", s);
+        System.out.println(Arrays.toString(k[s]));
+        
         ode.getRate(temp_state, k[s]);
       }
+      System.out.format("cum=%d \n", cum);
       // Compute the error
       error = 0;
       for(int i = 0; i<numEqn; i++) {
@@ -116,6 +132,7 @@ public class DormandPrince45 implements ODEAdaptiveSolver {
           stepSize = stepSize*Math.min(fac, 10);
         }
       }
+      System.out.format("iterations=%d \n", iterations);
     } while((error>tol)&&(iterations>0));
     // advance the state
     for(int i = 0; i<numEqn; i++) {
