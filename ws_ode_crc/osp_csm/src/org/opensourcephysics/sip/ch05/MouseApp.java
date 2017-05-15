@@ -1,4 +1,3 @@
-// linked file
 /*
  * Open Source Physics software is free software as described near the bottom of this code file.
  *
@@ -6,51 +5,57 @@
  * <http://www.opensourcephysics.org/>
  */
 
-package org.opensourcephysics.sip.ch03;
-import org.opensourcephysics.numerics.*;
+package org.opensourcephysics.sip.ch05;
+import java.awt.event.*;
+import javax.swing.*;
+import org.opensourcephysics.display.*;
+import org.opensourcephysics.frames.*;
 
 /**
- * FallingParticleODE models a falling particle by implementing the ODE interface.
+ * MouseApp demonstrates how to handle actions from an interactive drawing panel.
  *
  * @author Wolfgang Christian, Jan Tobochnik, Harvey Gould
- * @version 1.0  05/16/05
+ * @version 1.0
  */
-public class FallingParticleODE implements ODE {
-  final static double g = 9.8;
-  double[] state = new double[3];
+public class MouseApp implements InteractiveMouseHandler {
+  PlotFrame frame = new PlotFrame("x", "y", "Interactive Handler");
 
   /**
-   * Constructs the FallingParticleODE model with the given intial postion and velocity.
-   *
-   * @param y double
-   * @param v double
+   * Constructs the MouseApp.
    */
-  public FallingParticleODE(double y, double v) {
-    state[0] = y;
-    state[1] = v;
-    state[2] = 0; // initial time
+  public MouseApp() {
+    frame.setInteractiveMouseHandler(this);
+    frame.setVisible(true);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
   /**
-   * Gets the state array.  Required to implement ODE interface
+   * Handles mouse actions in the plot frame.
    *
-   * @return double[]
+   * @param panel
+   * @param evt
    */
-  public double[] getState() { // required to implement ODE interface
-    return state;
+  public void handleMouseAction(InteractivePanel panel, MouseEvent evt) {
+    switch(panel.getMouseAction()) {
+    case InteractivePanel.MOUSE_DRAGGED :
+      panel.setMessage("Dragged");
+      break;
+    case InteractivePanel.MOUSE_PRESSED :
+      panel.setMessage("Pressed");
+      break;
+    case InteractivePanel.MOUSE_RELEASED :
+      panel.setMessage(null);
+      break;
+    }
   }
 
   /**
-   * Gets the rate array.  Required to implement ODE interface
-   * The rate is computed using the given state, not the object's state.
+   * Starts the program.
    *
-   * @param state double[]
-   * @param rate double[]
+   * @param args
    */
-  public void getRate(double[] state, double[] rate) {
-    rate[0] = state[1]; // rate of change of y is v
-    rate[1] = -g;
-    rate[2] = 1;        // rate of change of time is 1
+  public static void main(String[] args) {
+    new MouseApp();
   }
 }
 

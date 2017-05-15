@@ -25,7 +25,7 @@ public class ComparisonRK45App {
     while(time<50) {
       time += ode_solver.step();
       String xStr1 = "x1 = "+state[0];
-      System.out.println(xStr1+" \t error= "+(state[0]-ode.getExactSolution(time)));
+      System.out.println("time="+time+ "\t"+xStr1+" \t error= "+(state[0]-ode.getExactSolution(time)) + "n="+ode.n);
     }
     System.out.println("rate evaluated #: "+ode.n);
   }

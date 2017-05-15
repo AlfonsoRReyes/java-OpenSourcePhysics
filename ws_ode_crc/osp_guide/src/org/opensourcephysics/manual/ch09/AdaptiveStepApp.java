@@ -1,3 +1,5 @@
+// linked file
+
 /*
  * Open Source Physics software is free software as described near the bottom of this code file.
  *
@@ -34,6 +36,7 @@ public class AdaptiveStepApp {
     while(ode.getState()[0]<12) {
       dataset.append(ode.getState()[2], ode.getState()[1]);
       ode_solver.step();
+      System.out.format("state[0] = %12f, state[2] =%12f, state[1] =%12f \n", ode.getState()[0], ode.getState()[2], ode.getState()[1]);
     }
     frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
     frame.setVisible(true);

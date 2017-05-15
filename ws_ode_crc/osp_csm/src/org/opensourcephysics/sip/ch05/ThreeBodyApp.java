@@ -1,4 +1,3 @@
-// linked file
 /*
  * Open Source Physics software is free software as described near the bottom of this code file.
  *
@@ -6,51 +5,62 @@
  * <http://www.opensourcephysics.org/>
  */
 
-package org.opensourcephysics.sip.ch03;
-import org.opensourcephysics.numerics.*;
+package org.opensourcephysics.sip.ch05;
+import org.opensourcephysics.controls.*;
+import org.opensourcephysics.frames.*;
 
 /**
- * FallingParticleODE models a falling particle by implementing the ODE interface.
+ * ThreeBodyApp models the three body problem by extending
+ * AbstractSimulation and implementing the doStep method.
  *
  * @author Wolfgang Christian, Jan Tobochnik, Harvey Gould
- * @version 1.0  05/16/05
+ * @version 1.0
  */
-public class FallingParticleODE implements ODE {
-  final static double g = 9.8;
-  double[] state = new double[3];
+public class ThreeBodyApp extends AbstractSimulation {
+  PlotFrame frame = new PlotFrame("x", "y", "Three-Body Orbits");
+  ThreeBody trajectory = new ThreeBody();
 
   /**
-   * Constructs the FallingParticleODE model with the given intial postion and velocity.
-   *
-   * @param y double
-   * @param v double
+   * Constructs ThreeBodyApp and initializes the drawing.
    */
-  public FallingParticleODE(double y, double v) {
-    state[0] = y;
-    state[1] = v;
-    state[2] = 0; // initial time
+  public ThreeBodyApp() {
+    frame.addDrawable(trajectory);
+    frame.setSquareAspect(true);
+    frame.setSize(450, 450);
   }
 
   /**
-   * Gets the state array.  Required to implement ODE interface
-   *
-   * @return double[]
+   * Initializes the simulation;
    */
-  public double[] getState() { // required to implement ODE interface
-    return state;
+  public void initialize() {
+    trajectory.odeSolver.setStepSize(control.getDouble("dt"));
+    trajectory.initialize(ThreeBodyInitialConditions.MONTGOMERY);
+    frame.setPreferredMinMax(-1.5, 1.5, -1.5, 1.5);
   }
 
   /**
-   * Gets the rate array.  Required to implement ODE interface
-   * The rate is computed using the given state, not the object's state.
-   *
-   * @param state double[]
-   * @param rate double[]
+   * Resets the animation into a predefined state.
    */
-  public void getRate(double[] state, double[] rate) {
-    rate[0] = state[1]; // rate of change of y is v
-    rate[1] = -g;
-    rate[2] = 1;        // rate of change of time is 1
+  public void reset() {
+    control.setValue("dt", 0.1);
+    enableStepsPerDisplay(true);
+    initialize();
+  }
+
+  /**
+   * Does an animation step.
+   */
+  protected void doStep() {
+    trajectory.doStep();
+    frame.setMessage("t="+decimalFormat.format(trajectory.state[4]));
+  }
+
+  /**
+   * Starts the Java application.
+   * @param args  command line parameters
+   */
+  public static void main(String[] args) {
+    SimulationControl.createApp(new ThreeBodyApp());
   }
 }
 
