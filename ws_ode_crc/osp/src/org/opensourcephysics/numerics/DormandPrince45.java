@@ -80,21 +80,21 @@ public class DormandPrince45 implements ODEAdaptiveSolver {
    * @return the step size
    */
   public double step() {
-	  System.out.print("Top first Step --------------------- \n");
-	  System.out.println(Arrays.deepToString(k));
+//	  System.out.print("Top first Step --------------------- \n");
+//	  System.out.println(Arrays.deepToString(k));
     error_code = ODEAdaptiveSolver.NO_ERROR;
     int iterations = 10;
     double currentStep = stepSize, error = 0;
     
     double state[] = ode.getState();
-    System.out.println(Arrays.toString(k[0]));
+//    System.out.println(Arrays.toString(k[0]));
     ode.getRate(state, k[0]); // get the initial rate
-    System.out.println(Arrays.toString(k[0]) + "\n");
+//    System.out.println(Arrays.toString(k[0]) + "\n");
     // NEW iteration
     do {
-    	System.out.print("NEW iteration \n");
-        System.out.print("state:"); System.out.println(Arrays.toString(state));
-        System.out.println(Arrays.deepToString(k));
+//    	System.out.print("NEW iteration \n");
+//        System.out.print("state:"); System.out.println(Arrays.toString(state));
+//        System.out.println(Arrays.deepToString(k));
       iterations--;
       currentStep = stepSize;
       // Compute the k's
@@ -104,16 +104,16 @@ public class DormandPrince45 implements ODEAdaptiveSolver {
           temp_state[i] = state[i];
           for(int j = 0; j<s; j++) {
             temp_state[i] = temp_state[i] + stepSize * a[s-1][j] * k[j][i];
-            System.out.format("[%d][%d] tempState=%12f, stepSize=%12f, a=%12f, k=%12f \n", s, j, temp_state[i], stepSize, a[s-1][j], k[j][i]);
+//            System.out.format("[%d][%d] tempState=%12f, stepSize=%12f, a=%12f, k=%12f \n", s, j, temp_state[i], stepSize, a[s-1][j], k[j][i]);
             cum = cum +1;
           }
         }
         // print k array
-        System.out.format("k[%d]=", s);
-        System.out.println(Arrays.toString(k[s]));
+//        System.out.format("k[%d]=", s);
+//        System.out.println(Arrays.toString(k[s]));
         ode.getRate(temp_state, k[s]);
       } // end for "s"
-      System.out.format("cum=%d \n", cum);
+//      System.out.format("cum=%d \n", cum);
       
       // Compute the error
       error = 0;
@@ -121,32 +121,32 @@ public class DormandPrince45 implements ODEAdaptiveSolver {
         truncErr = 0;
         for(int s = 0; s<numStages; s++) {
           truncErr = truncErr + stepSize * er[s] * k[s][i];
-          System.out.format("[%d] [%s] error = %12f truncError=%12f er=%12f, k=%12f \n", i, s, error, truncErr, er[s] , k[s][i]);
+//          System.out.format("[%d] [%s] error = %12f truncError=%12f er=%12f, k=%12f \n", i, s, error, truncErr, er[s] , k[s][i]);
         }
         error = Math.max(error, Math.abs(truncErr));
         
       }
-      System.out.format("[after trunc] error = %12f \n", error);
+//      System.out.format("[after trunc] error = %12f \n", error);
       if(error<=Float.MIN_VALUE) { // error too small to be meaningful,
-    	  System.out.print("error <= Float.MIN_VALUE --------- \n");
+//    	  System.out.print("error <= Float.MIN_VALUE --------- \n");
         error = tol/1.0e5;         // increase stepSize x10
       }
       // find h step for the next try.
       if(error>tol) {              // shrink, no more than x10
-    	  System.out.print("error > tol ++++++ \n");
+//    	  System.out.print("error > tol ++++++ \n");
         double fac = 0.9*Math.pow(error/tol, -0.25);
         stepSize = stepSize*Math.max(fac, 0.1);
       } else if(error<tol/10.0) {  // grow, but no more than factor of 10
-    	  System.out.print("inside if else ++++++ \n");
+//    	  System.out.print("inside if else ++++++ \n");
         double fac = 0.9*Math.pow(error/tol, -0.2);
         if(fac>1) {                // sometimes fac is <1 because error/tol is close to one
           stepSize = stepSize*Math.min(fac, 10);
         }
       }
-      System.out.format("error=%10f, tol=%10f, iterations=%d \n", error, tol, iterations);
+//      System.out.format("error=%10f, tol=%10f, iterations=%d \n", error, tol, iterations);
     } while((error>tol)&&(iterations>0));
     // advance the state
-    System.out.print("OUTSIDE LOOP ------- \n");
+//    System.out.print("OUTSIDE LOOP ------- \n");
     for(int i = 0; i<numEqn; i++) {
       for(int s = 0; s<numStages; s++) {
         state[i] += currentStep * b5[s] * k[s][i];
@@ -158,7 +158,7 @@ public class DormandPrince45 implements ODEAdaptiveSolver {
         throw new ODESolverException("DormanPrince45 ODE solver did not converge."); //$NON-NLS-1$
       }
     }
-    System.out.format("currentStep=%12f \n", currentStep);
+//    System.out.format("currentStep=%12f \n", currentStep);
     return currentStep; // the value of the step actually taken.
   }
 
