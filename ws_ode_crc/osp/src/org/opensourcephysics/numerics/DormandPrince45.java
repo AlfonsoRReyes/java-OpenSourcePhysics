@@ -82,8 +82,6 @@ public class DormandPrince45 implements ODEAdaptiveSolver {
    */
   public double step() {
 	  System.out.print("Top first Step --------------------- \n");
-//	  System.out.print(a);
-//	  System.out.println(Arrays.deepToString(a));
 	  System.out.println(Arrays.deepToString(k));
     error_code = ODEAdaptiveSolver.NO_ERROR;
     int iterations = 10;
@@ -107,8 +105,6 @@ public class DormandPrince45 implements ODEAdaptiveSolver {
           temp_state[i] = state[i];
           for(int j = 0; j<s; j++) {
             temp_state[i] = temp_state[i] + stepSize * a[s-1][j] * k[j][i];
-            
-//            System.out.format("%d %d ", s, j);   System.out.print( a[s-1][j] + "\n");
             System.out.format("[%d][%d] tempState=%12f, stepSize=%12f, a=%12f, k=%12f \n", s, j, temp_state[i], stepSize, a[s-1][j], k[j][i]);
             cum = cum +1;
           }
@@ -116,9 +112,7 @@ public class DormandPrince45 implements ODEAdaptiveSolver {
         // print k array
         System.out.format("k[%d]=", s);
         System.out.println(Arrays.toString(k[s]));
-        
         ode.getRate(temp_state, k[s]);
-        
       } // end for "s"
       System.out.format("cum=%d \n", cum);
       
