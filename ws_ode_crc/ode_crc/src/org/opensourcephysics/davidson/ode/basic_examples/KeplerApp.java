@@ -36,6 +36,8 @@ public class KeplerApp extends AbstractSimulation {
       timePlot.append(0,planet.state[4],planet.state[0]);
       timePlot.append(1,planet.state[4],planet.state[1]);
       positionPlot.setMessage("t="+decimalFormat.format(planet.state[4]));
+      System.out.format("state[0]=%12f, state[1]=%12f, state[2]=%12f, state[4]=%12f \n", 
+    		  planet.state[0], planet.state[1],planet.state[2],planet.state[4]);
    }
 
    /**
