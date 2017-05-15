@@ -58,7 +58,6 @@ public class DormandPrince45 implements ODEAdaptiveSolver {
    * @param _stepSize
    */
   public void initialize(double _stepSize) {
-	System.out.print("Initialize <<<<<<<<< \n");
     stepSize = _stepSize;
     double state[] = ode.getState();
     if(state==null) { // state vector not defined.
